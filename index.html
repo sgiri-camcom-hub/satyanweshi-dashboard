@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Satyanweshi Daily Brief — Executive OS Console</title>
+  <!-- Google Fonts Fallback & Icon Library -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Chart.js for High-Fidelity Interactive Visualizations -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <div class="nav-brand">
+      <div class="brand-logo">
+        <img src="satyanweshi-logo.png" alt="Satyanweshi Logo" class="brand-logo-img">
+      </div>
+      <div class="brand-badge">Satyanweshi OS</div>
+    </div>
+    
+    <!-- Controls Block -->
+    <div class="nav-controls">
+      <div class="date-selector-wrapper">
+        <div class="date-field">
+          <label for="startDate"><i class="fa-regular fa-calendar"></i> Start</label>
+          <input type="date" id="startDate" value="2026-05-25">
+        </div>
+        <div class="date-field">
+          <label for="endDate"><i class="fa-regular fa-calendar"></i> End</label>
+          <input type="date" id="endDate" value="2026-05-25">
+        </div>
+        <button id="filterBtn" class="btn-primary"><i class="fa-solid fa-sliders"></i> Filter</button>
+      </div>
+
+      <div class="action-buttons">
+        <div class="file-uploader btn-secondary">
+          <label for="jsonUploader"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Brief</label>
+          <input type="file" id="jsonUploader" accept=".json">
+        </div>
+        <button id="exportCsvBtn" class="btn-secondary"><i class="fa-solid fa-file-csv"></i> Global Export</button>
+        <button id="themeToggleBtn" class="btn-icon"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="dashboard-container">
+    
+    <!-- Row 1: Executive BLUF & Advisory Radar -->
+    <section class="executive-radar">
+      <div class="panel-header">
+        <h2><i class="fa-solid fa-brain"></i> Executive Advisory Block (AI-OS BLUF)</h2>
+        <span class="radar-status"><span class="pulse-indicator red"></span> 3 High-Impact Risks Detected</span>
+      </div>
+      <div class="radar-content">
+        <div class="radar-card risk-card red-glow">
+          <div class="radar-card-header">
+            <span class="card-tag tag-red">Critical Failure SLA</span>
+            <h4>Zurich Indonesia Claims</h4>
+          </div>
+          <p>Zurich Indonesia Claims has logged a **8.00% daily failure rate** (11.69% MTD), significantly exceeding the **5.00% target threshold**. Major triggers identified: non-standard Commercial/2W/3W vehicles and inappropriate photos.</p>
+          <div class="radar-card-action">
+            <span class="action-label">Recommendation:</span>
+            <span>Enable vehicle-type pre-filtering in UI onboarding step.</span>
+          </div>
+        </div>
+
+        <div class="radar-card improvement-card orange-glow">
+          <div class="radar-card-header">
+            <span class="card-tag tag-orange">Optimization Trigger</span>
+            <h4>BAGIC Inverted Images Pattern</h4>
+          </div>
+          <p>BAGIC Claims logged a 4.36% failure rate today. **100% of these failures (14 out of 14 cases) are caused by "Inverted Images"**. Resolving the image-orientation parser will immediately drop failures to zero.</p>
+          <div class="radar-card-action">
+            <span class="action-label">Recommendation:</span>
+            <span>Deploy orientation check hotfix in next sprint.</span>
+          </div>
+        </div>
+
+        <div class="radar-card info-card cyan-glow">
+          <div class="radar-card-header">
+            <span class="card-tag tag-cyan">Go-Live Alert</span>
+            <h4>Kiwi Onboarding Pipeline</h4>
+          </div>
+          <p>Kiwi Insurance is entering the final stage of go-live this month. Performance baselines are established, sandbox environments cleared. Awaiting final client sign-off on the integration webhook.</p>
+          <div class="radar-card-action">
+            <span class="action-label">Status:</span>
+            <span>Checklist 92% complete. Launch scheduled for May 30, 2026.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 2: Navigation & Tab Workspace -->
+    <section class="workspace-tabs-section">
+      <div class="workspace-tab-header">
+        <span class="section-label">Select Workspace / Tab</span>
+        <div class="workspace-tabs-wrapper">
+          <button class="tab-btn active" data-tab="summary">📊 Summary</button>
+          <button class="tab-btn" data-tab="pivot">🔄 MTD Volume Pivot</button>
+          <div class="tab-divider"></div>
+          <button class="tab-btn" data-tab="bagic_claims">BAGIC Claims</button>
+          <button class="tab-btn" data-tab="hdfc_breakin">HDFC Break-in</button>
+          <button class="tab-btn" data-tab="hdfc_claims">HDFC Claims</button>
+          <button class="tab-btn" data-tab="quickinsure">QuickInsure</button>
+          <button class="tab-btn" data-tab="rsi_claims">RSI Claims</button>
+          <button class="tab-btn" data-tab="rsi_pi">RSI PI</button>
+          <button class="tab-btn" data-tab="tata_aig_pi">Tata AIG PI</button>
+          <button class="tab-btn" data-tab="zurich_claims">Zurich Claims</button>
+          <button class="tab-btn" data-tab="zurich_pi">Zurich PI</button>
+          <div class="tab-divider"></div>
+          <button class="tab-btn pilot-tab" data-tab="magma">🔥 Magma Pilot</button>
+        </div>
+      </div>
+
+      <!-- Tab View Display Canvas -->
+      <div class="workspace-canvas">
+        
+        <!-- Key Metrics Cards Block -->
+        <div class="metrics-grid" id="metricsGrid">
+          <div class="metric-card glass-panel">
+            <div class="metric-info">
+              <span class="metric-label">Daily Inspections Volume</span>
+              <h3 id="metricVolume">1,434</h3>
+              <span class="metric-trend text-green"><i class="fa-solid fa-arrow-trend-up"></i> +12% MoM</span>
+            </div>
+            <div class="metric-icon bg-red-dim"><i class="fa-solid fa-bolt-lightning text-red"></i></div>
+          </div>
+          
+          <div class="metric-card glass-panel">
+            <div class="metric-info">
+              <span class="metric-label">Completed Inspections</span>
+              <h3 id="metricCompleted">1,374</h3>
+              <span class="metric-trend text-green" id="automationRate">95.82% Auto-Rate</span>
+            </div>
+            <div class="metric-icon bg-green-dim"><i class="fa-solid fa-square-check text-green"></i></div>
+          </div>
+
+          <div class="metric-card glass-panel">
+            <div class="metric-info">
+              <span class="metric-label">Failed Inspections</span>
+              <h3 id="metricFailed" class="text-red">60</h3>
+              <span class="metric-trend text-red" id="failureRate">4.18% Failure Rate</span>
+            </div>
+            <div class="metric-icon bg-red-dim"><i class="fa-solid fa-triangle-exclamation text-red"></i></div>
+          </div>
+
+          <div class="metric-card glass-panel">
+            <div class="metric-info">
+              <span class="metric-label">Active Warning Triggers</span>
+              <h3 id="metricWarnings" class="text-orange">5</h3>
+              <span class="metric-trend text-orange" id="warningScope">High Damage Flags</span>
+            </div>
+            <div class="metric-icon bg-orange-dim"><i class="fa-solid fa-circle-radiation text-orange"></i></div>
+          </div>
+        </div>
+
+        <!-- Dashboard Body Content Layout (Flex Grid) -->
+        <div class="dashboard-body-layout" id="dashboardContentLayout">
+          
+          <!-- Column A: Charts & Visuals -->
+          <div class="layout-column visual-insights">
+            
+            <!-- Chart 1: Processing Time Analytics (DA vs DA Bot) -->
+            <div class="glass-panel chart-card" id="timeChartCard">
+              <div class="chart-header">
+                <div class="chart-title">
+                  <h3>Time to Complete (created_at &rarr; hil_completed_date)</h3>
+                  <p>Distribution profiles across SLA buckets &amp; DA Bot Overlay</p>
+                </div>
+                <div class="dropdown-container">
+                  <button class="btn-dots"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  <div class="dropdown-menu">
+                    <button class="dropdown-item" onclick="downloadChart('timeChart', 'time_to_complete_chart.png')"><i class="fa-solid fa-file-image"></i> Save Image</button>
+                    <button class="dropdown-item" onclick="exportSlaData()"><i class="fa-solid fa-file-csv"></i> Save CSV</button>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-canvas-wrapper">
+                <canvas id="timeChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 3: Volume Trend (Dynamic line graph) -->
+            <div class="glass-panel chart-card" id="volumeTrendChartCard">
+              <div class="chart-header">
+                <div class="chart-title">
+                  <h3>Volume Trend</h3>
+                  <p>Daily inspections processed over selected duration</p>
+                </div>
+                <div class="dropdown-container">
+                  <button class="btn-dots"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  <div class="dropdown-menu">
+                    <button class="dropdown-item" onclick="downloadChart('volumeTrendChart', 'volume_trend_chart.png')"><i class="fa-solid fa-file-image"></i> Save Image</button>
+                    <button class="dropdown-item" onclick="exportVolumeTrendData()"><i class="fa-solid fa-file-csv"></i> Save CSV</button>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-canvas-wrapper">
+                <canvas id="volumeTrendChart"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 2: Failures Breakdown (Client detail specific) -->
+            <div class="glass-panel chart-card" id="failureChartCard">
+              <div class="chart-header">
+                <div class="chart-title">
+                  <h3>Failure Root Cause Analysis</h3>
+                  <p>Categorized failure cases today</p>
+                </div>
+                <div class="dropdown-container">
+                  <button class="btn-dots"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                  <div class="dropdown-menu">
+                    <button class="dropdown-item" onclick="downloadChart('failureChart', 'failure_distribution_chart.png')"><i class="fa-solid fa-file-image"></i> Save Image</button>
+                    <button class="dropdown-item" onclick="exportFailuresData()"><i class="fa-solid fa-file-csv"></i> Save CSV</button>
+                  </div>
+                </div>
+              </div>
+              <div class="chart-canvas-wrapper">
+                <canvas id="failureChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column B: Lists, Audits, Table Ledger -->
+          <div class="layout-column audit-records">
+            
+            <!-- AI-OS Strategic Insight Card -->
+            <div class="glass-panel insights-panel" id="insightsPanelCard">
+              <div class="panel-inner-header">
+                <h3><i class="fa-solid fa-lightbulb text-cyan"></i> AI-OS Advisory & suggestions</h3>
+              </div>
+              <div class="insights-content" id="insightsContent">
+                <!-- Dynamic insights injected -->
+              </div>
+            </div>
+
+            <!-- Dynamic Table: Warnings details -->
+            <div class="glass-panel warnings-panel" id="warningsPanel">
+              <div class="panel-inner-header">
+                <h3><i class="fa-solid fa-circle-radiation text-orange"></i> Flagged Anomaly and High-Damage Alerts</h3>
+              </div>
+              <div class="warnings-list" id="warningsList">
+                <!-- Warnings injected dynamically -->
+              </div>
+            </div>
+
+            <!-- Dynamic Table: Incidents Diagnostic Sandbox -->
+            <div class="glass-panel table-panel">
+              <div class="panel-inner-header">
+                <div class="table-title">
+                  <h3>Diagnostic Sandbox Ledger</h3>
+                  <p>Granular operational details for client cases</p>
+                </div>
+                <button class="btn-small" id="exportTableBtn"><i class="fa-solid fa-download"></i> Export Table</button>
+              </div>
+              <div class="table-wrapper">
+                <table class="premium-table" id="diagnosticTable">
+                  <thead>
+                    <tr id="tableHeaders">
+                      <th>Customer</th>
+                      <th>Region</th>
+                      <th>Claims MTD</th>
+                      <th>PI MTD</th>
+                      <th>Total MTD</th>
+                      <th>FY Total</th>
+                      <th>Avg/Day</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody">
+                    <!-- Dynamic rows injected -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Pilot Status Tracker (Specific for Magma Pilot / Dhofar Pilot) -->
+            <div class="glass-panel pilot-conversion-panel" id="pilotPanel">
+              <div class="panel-inner-header">
+                <h3><i class="fa-solid fa-gauge-high text-cyan"></i> Pilot Conversion Status Radar</h3>
+              </div>
+              <div class="pilot-timeline">
+                <div class="pilot-timeline-item completed">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-info">
+                    <h4>POC Scope Finalization</h4>
+                    <p>Defined damage detection part SLA metrics.</p>
+                  </div>
+                </div>
+                <div class="pilot-timeline-item active">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-info">
+                    <h4>Accuracy Validation Phase (H1 Baseline)</h4>
+                    <p>Evaluating Precision/Recall on 500 inspection trials.</p>
+                  </div>
+                </div>
+                <div class="pilot-timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-info">
+                    <h4>Revenue Integration & Billing Onboarding</h4>
+                    <p>Setup contract structure and SaaS metrics mapping.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Revenue Leakage Modals -->
+  <footer class="console-footer">
+    <div class="footer-links">
+      <span>Satyanweshi Portal Executive Console v3.1</span>
+      <span>&bull;</span>
+      <span>Designed by Antigravity OS</span>
+    </div>
+    <div class="brand-credits">
+      &copy; 2026 CamCom Technologies Pvt Ltd
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
